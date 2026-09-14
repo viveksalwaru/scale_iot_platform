@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>DeepManthan AI — How it works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070c18; --panel:#101a2e; --panel2:#0b1220; --line:rgba(255,255,255,.09);
+  --ink:#eaf1fb; --mut:#9aa8bf; --mut2:#5f6d84;
+  --cyan:#22d3ee; --blue:#38bdf8; --indigo:#818cf8; --green:#34d399; --amber:#fbbf24; --red:#ef4444; --pink:#f472b6; --violet:#a78bfa;
+  --sans:'Inter',system-ui,sans-serif; --disp:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+  radial-gradient(1300px 700px at 82% -10%,rgba(56,189,248,.14),transparent 60%),
+  radial-gradient(1100px 700px at 0% 20%,rgba(129,140,248,.10),transparent 55%),var(--bg);
+  color:var(--ink);font-family:var(--sans);line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.nav{display:flex;align-items:center;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:700;font-size:19px}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,#22d3ee,#818cf8);display:grid;place-items:center;color:#08101f;font-weight:800;box-shadow:0 6px 20px rgba(34,211,238,.35)}
+.brand span{background:linear-gradient(90deg,#fff,#a9c7ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.hero{text-align:center;padding:34px 0 8px}
+.hero .eye{font-family:var(--disp);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(30px,5vw,52px);line-height:1.08;margin:10px 0 14px;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#22d3ee,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:0 auto;color:var(--mut);font-size:clamp(15px,1.8vw,18px)}
+
+.stagewrap{margin:28px 0 6px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:22px;padding:12px}
+svg#stage{width:100%;height:auto;display:block}
+.cap{text-align:center;color:var(--mut);font-size:13.5px;margin:12px auto 0;max-width:820px}
+.cap b{color:var(--ink)}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:44px 0 10px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.step .n{font-family:var(--disp);font-weight:700;font-size:15px;color:var(--cyan)}
+.step h3{font-family:var(--disp);font-weight:600;font-size:16px;margin:8px 0 6px}
+.step p{color:var(--mut);font-size:13.5px;margin:0}
+
+section{padding:56px 0}
+.stitle{font-family:var(--disp);font-weight:600;font-size:clamp(24px,3.4vw,32px);text-align:center;margin:0 0 8px}
+.slead{color:var(--mut);text-align:center;max-width:660px;margin:0 auto 34px;font-size:15.5px}
+
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22)}
+.card .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;margin-bottom:14px}
+.card h3{font-family:var(--disp);font-weight:600;font-size:18px;margin:0 0 8px}
+.card p{color:var(--mut);font-size:14px;margin:0}
+.chat{margin-top:14px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.bub{font-size:13px;border-radius:12px;padding:8px 11px;margin:5px 0;max-width:90%}
+.bub.me{background:linear-gradient(140deg,#3f6fd0,#3a92c4);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.bub.ai{background:#131c30;border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px}
+
+.uses{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
+.usechip{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:11px 18px;font-size:14.5px;font-weight:500}
+.usechip b{margin-right:7px}
+
+footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;text-align:center;color:var(--mut);font-size:13.5px}
+footer .brand{justify-content:center;margin-bottom:10px}
+
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr}.feat{grid-template-columns:1fr}}
+
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gallery figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .15s}
+.gallery figure:hover{transform:translateY(-3px)}
+.gallery img{width:100%;display:block;border-bottom:1px solid var(--line)}
+.gallery figcaption{padding:13px 16px;color:var(--mut);font-size:13.5px}
+.gallery figcaption b{color:var(--ink)}
+@media(max-width:860px){.gallery{grid-template-columns:1fr}}
+
+.bigband{background:linear-gradient(160deg,rgba(34,211,238,.10),rgba(129,140,248,.06));border:1px solid rgba(34,211,238,.3);border-radius:22px;padding:36px 30px;text-align:center;max-width:920px;margin:0 auto}
+.bigband h2{font-family:var(--disp);font-weight:600;font-size:clamp(22px,3.2vw,30px);margin:0 0 14px}
+.bigband p{color:var(--mut);font-size:15.5px;max-width:780px;margin:0 auto 20px;line-height:1.65}
+.bigband p b{color:var(--ink)}
+.pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pills span{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:99px;padding:8px 15px;font-size:13.5px;color:var(--ink)}
+
+.eyebrow{display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(34,211,238,.3);background:rgba(34,211,238,.08);padding:6px 14px;border-radius:99px;margin-bottom:22px}
+.hero{text-align:center;padding:60px 0 8px}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(34px,5.4vw,60px);line-height:1.06;margin:12px 0 16px;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#22d3ee,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:720px;margin:0 auto 26px;color:var(--mut);font-size:clamp(15px,1.8vw,18px)}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:14px;text-decoration:none;border-radius:11px;padding:12px 20px;cursor:pointer;border:1px solid var(--line);color:var(--ink);background:var(--panel)}
+.btn:hover{border-color:rgba(255,255,255,.3)}
+.btn.primary{background:linear-gradient(140deg,#22d3ee,#3b82f6);border:none;color:#07101f;box-shadow:0 10px 30px rgba(34,211,238,.35)}
+.btn.primary:hover{filter:brightness(1.05)}
+.chips{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 20px;min-width:150px}
+.chip b{font-family:var(--disp);font-weight:700;font-size:24px;display:block;background:linear-gradient(90deg,#eaf1fb,#9fc2ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chip span{font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="nav"><div class="brand"><span class="logo">◆</span><span>DeepManthan&nbsp;AI</span></div></div>
+
+  <header class="hero">
+    <div class="eyebrow">IoT Platform</div>
+    <h1>One platform for <em>every sensor,<br>every scale, every mission.</em></h1>
+    <p>DeepManthan AI ingests data from a handful of sensors to hundreds of thousands — and turns it into live, actionable dashboards for any domain. The pipeline never changes; only the sensors and the intelligence on top do.</p>
+    <div class="actions">
+      <a class="btn primary" href="#screens">See it live &rarr;</a>
+      <a class="btn" href="#flow">How the data flows</a>
+    </div>
+    <div class="chips">
+      <div class="chip"><b>5 &rarr; 260,000+</b><span>sensors, same pipeline</span></div>
+      <div class="chip"><b>&lt; 15 s</b><span>sensor to dashboard</span></div>
+      <div class="chip"><b>1 platform</b><span>weather &middot; water &middot; disaster &middot; wildlife</span></div>
+      <div class="chip"><b>0 loss</b><span>durable, replayable ingest</span></div>
+    </div>
+  </header>
+
+  <div class="stagewrap" id="flow">
+    <svg id="stage" viewBox="0 0 1200 560" role="img" aria-label="Data flows from five regions of India into the DeepManthan platform, which sends it to a dashboard, alerts, AI predictions and an assistant."></svg>
+    <p class="cap">Every glowing dot is <b>real sensor data</b> travelling from a village to our platform — <b>processed in under a second</b> and turned into what you see on the right.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h3>Sensors send</h3><p>Sensors in villages across every region measure things — rain, water, air — and send it in.</p></div>
+    <div class="step"><div class="n">02</div><h3>We collect</h3><p>Every reading flows into our platform, safely, with nothing lost along the way.</p></div>
+    <div class="step"><div class="n">03</div><h3>We process</h3><p>The platform checks it, understands it and updates the live picture — instantly.</p></div>
+    <div class="step"><div class="n">04</div><h3>You act</h3><p>You see it on a dashboard, get alerted the moment it matters, and can simply ask questions.</p></div>
+  </div>
+</div>
+
+<section class="wrap">
+  <h2 class="stitle">What makes it powerful</h2>
+  <p class="slead">Built to grow, built to never stop, and built to think ahead — in plain terms:</p>
+  <div class="feat">
+    <div class="card">
+      <div class="ic" style="background:rgba(34,211,238,.16)">📈</div>
+      <h3>Grows with you</h3>
+      <p>From 5 sensors to 5 million — on the same platform. Add a village, a district, or a whole country, and nothing has to be rebuilt.</p>
+    </div>
+    <div class="card">
+      <div class="ic" style="background:rgba(52,211,153,.16)">🛡️</div>
+      <h3>Always running</h3>
+      <p>If one computer fails, another takes over instantly. If a whole location goes down, a backup site keeps everything running — with no data lost.</p>
+    </div>
+    <div class="card">
+      <div class="ic" style="background:rgba(239,68,68,.16)">🔔</div>
+      <h3>Instant alerts</h3>
+      <p>You set the rules — "warn me if rain crosses this level." The moment a sensor crosses the line, an alert appears automatically, day and night.</p>
+    </div>
+    <div class="card">
+      <div class="ic" style="background:rgba(129,140,248,.16)">🔮</div>
+      <h3>Sees what's coming</h3>
+      <p>AI studies the patterns and warns you <b>before</b> trouble arrives — not just what's happening now, but what's likely next.</p>
+    </div>
+    <div class="card">
+      <div class="ic" style="background:rgba(244,114,182,.16)">💬</div>
+      <h3>Just ask it</h3>
+      <p>Talk to the system in plain language and get a clear answer, instantly — no training, no manuals.</p>
+      <div class="chat">
+        <div class="bub me">Is my area safe today?</div>
+        <div class="bub ai">North India shows high storm risk in about 2 hours. Please stay indoors and keep phones charged.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ic" style="background:rgba(56,189,248,.16)">🎯</div>
+      <h3>Any use, any mission</h3>
+      <p>The same platform works for weather, water, floods, wildlife, energy and more — just point it at a new kind of sensor.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="bigband">
+    <h2>Built the way the world's biggest systems are built</h2>
+    <p>We use the same proven principles that power the world's largest real-time systems — continuous data streaming, horizontal scaling, data sharding, and modern orchestration pioneered by the platforms that run the internet's heaviest workloads. As demand grows, <b>we don't rebuild — we simply add more machines</b>. It's the industry-standard way to scale, applied at the scale India's networks need, and it can go far beyond.</p>
+    <div class="pills">
+      <span>➕ Add machines, don't rebuild</span>
+      <span>📶 Proven at massive scale</span>
+      <span>🏗 Industry-standard foundations</span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top:10px">
+  <h2 class="stitle">One platform, many missions</h2>
+  <p class="slead">The exact same system, serving very different needs:</p>
+  <div class="uses">
+    <div class="usechip"><b>🌩</b>Weather warnings</div>
+    <div class="usechip"><b>💧</b>Village water</div>
+    <div class="usechip"><b>🌊</b>Flood alerts</div>
+    <div class="usechip"><b>🐆</b>Wildlife safety</div>
+    <div class="usechip"><b>⚡</b>Energy</div>
+    <div class="usechip"><b>🌫</b>Air quality</div>
+  </div>
+</section>
+
+<section class="wrap" id="screens" style="padding-top:6px">
+  <h2 class="stitle">The real screens</h2>
+  <p class="slead">Not a mock-up — these are live dashboards from the running system.</p>
+  <div class="gallery">
+    <figure><img src="vajra.png" alt="Weather early-warning dashboard"><figcaption><b>Weather early-warning.</b> Storm risk across India, with live alerts and an assistant.</figcaption></figure>
+    <figure><img src="jaldhara.png" alt="Village water monitoring dashboard"><figcaption><b>Village water monitoring.</b> Tanks, pumps and water quality, state by state.</figcaption></figure>
+    <figure><img src="live_packets.png" alt="Live ingest counter"><figcaption><b>Data pouring in.</b> Millions of readings received, live and counting.</figcaption></figure>
+    <figure><img src="graphana.png" alt="Operational dashboard"><figcaption><b>Operations view.</b> Every number computed live from the network.</figcaption></figure>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="logo" style="width:28px;height:28px;font-size:14px">◆</span><span>DeepManthan&nbsp;AI</span></div>
+    <p>Turning sensor data into decisions — for every region, at any scale.</p>
+  </div>
+</footer>
+
+<script>
+const SVG='http://www.w3.org/2000/svg';
+const svg=document.getElementById('stage');
+const el=(t,a)=>{const e=document.createElementNS(SVG,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+/* layout */
+const REGIONS=[{n:'North India',c:'#38bdf8',y:40},{n:'West India',c:'#a78bfa',y:140},{n:'Central India',c:'#fb7185',y:240},{n:'East India',c:'#fbbf24',y:340},{n:'South India',c:'#34d399',y:440}];
+const RX=40, RW=228, RH=78;
+const HUB={x:492,y:170,w:250,h:210};
+const OUTS=[{n:'Live Dashboard',ic:'📊',c:'#22d3ee',y:60,sub:'see it in real time'},
+            {n:'Smart Alerts',ic:'🔔',c:'#ef4444',y:180,sub:'the moment it matters'},
+            {n:'AI Predictions',ic:'🔮',c:'#818cf8',y:300,sub:'what happens next'},
+            {n:'AI Assistant',ic:'💬',c:'#f472b6',y:420,sub:'just ask'}];
+const OX=930, OW=230, OH=80;
+const HUBC={x:HUB.x+HUB.w/2,y:HUB.y+HUB.h/2};
+
+/* captions */
+function cap(x,txt){const t=el('text',{x,y:24,'text-anchor':'middle','font-family':'Space Grotesk','font-weight':600,'font-size':13,fill:'#8aa'});t.textContent=txt;svg.appendChild(t);}
+cap(RX+RW/2,'SENSORS ACROSS INDIA'); cap(HUBC.x,'OUR PLATFORM'); cap(OX+OW/2,'YOU SEE & ACT');
+
+/* connecting lines (behind) */
+const gLines=el('g',{}); svg.appendChild(gLines);
+REGIONS.forEach(r=>gLines.appendChild(el('line',{x1:RX+RW,y1:r.y+RH/2,x2:HUB.x,y2:HUBC.y,stroke:'rgba(255,255,255,.10)','stroke-width':1.4})));
+OUTS.forEach(o=>gLines.appendChild(el('line',{x1:HUB.x+HUB.w,y1:HUBC.y,x2:OX,y2:o.y+OH/2,stroke:'rgba(255,255,255,.10)','stroke-width':1.4})));
+
+/* region blocks */
+REGIONS.forEach(r=>{
+  const g=el('g',{});
+  g.appendChild(el('rect',{x:RX,y:r.y,width:RW,height:RH,rx:14,fill:'var(--panel)',stroke:r.c,'stroke-opacity':.55,'stroke-width':1.4}));
+  g.appendChild(el('rect',{x:RX,y:r.y+14,width:4,height:RH-28,rx:2,fill:r.c}));
+  const nm=el('text',{x:RX+18,y:r.y+31,'font-family':'Space Grotesk','font-weight':600,'font-size':15,fill:'#eef4fc'});nm.textContent=r.n;g.appendChild(nm);
+  const s=el('text',{x:RX+18,y:r.y+50,'font-size':11,fill:'#93a1b8'});s.textContent='thousands of sensors';g.appendChild(s);
+  for(let i=0;i<5;i++){const d=el('circle',{cx:RX+22+i*15,cy:r.y+63,r:3,fill:r.c});d.style.animation='blink 1.6s infinite';d.style.animationDelay=(i*0.25)+'s';g.appendChild(d);}
+  svg.appendChild(g);
+});
+
+/* hub */
+const hg=el('g',{});
+const grad=el('linearGradient',{id:'hg',x1:0,y1:0,x2:0,y2:1});grad.appendChild(el('stop',{offset:'0%','stop-color':'rgba(34,211,238,.16)'}));grad.appendChild(el('stop',{offset:'100%','stop-color':'rgba(129,140,248,.10)'}));
+const defs=el('defs',{});defs.appendChild(grad);svg.appendChild(defs);
+hg.appendChild(el('rect',{x:HUB.x,y:HUB.y,width:HUB.w,height:HUB.h,rx:20,fill:'url(#hg)',stroke:'rgba(34,211,238,.45)','stroke-width':1.6}));
+const hi=el('text',{x:HUBC.x,y:HUB.y+58,'text-anchor':'middle','font-size':34});hi.textContent='◆';hi.setAttribute('fill','#22d3ee');hg.appendChild(hi);
+const hn=el('text',{x:HUBC.x,y:HUB.y+96,'text-anchor':'middle','font-family':'Space Grotesk','font-weight':700,'font-size':18,fill:'#eef4fc'});hn.textContent='DeepManthan';hg.appendChild(hn);
+const hn2=el('text',{x:HUBC.x,y:HUB.y+117,'text-anchor':'middle','font-family':'Space Grotesk','font-weight':600,'font-size':15,fill:'#a9edf7'});hn2.textContent='Platform';hg.appendChild(hn2);
+const hs=el('text',{x:HUBC.x,y:HUB.y+140,'text-anchor':'middle','font-size':11.5,fill:'#9fb0c6'});hs.textContent='processes every reading instantly';hg.appendChild(hs);
+const b1=el('text',{x:HUBC.x,y:HUB.y+172,'text-anchor':'middle','font-size':11,fill:'#6ee7b7'});b1.textContent='⚡ Always on   🛡 Backup site';hg.appendChild(b1);
+svg.appendChild(hg);
+
+/* outputs */
+OUTS.forEach(o=>{
+  const g=el('g',{});
+  o.rect=el('rect',{x:OX,y:o.y,width:OW,height:OH,rx:15,fill:'var(--panel)',stroke:'rgba(255,255,255,.14)','stroke-width':1.4});
+  g.appendChild(o.rect);
+  const ic=el('text',{x:OX+24,y:o.y+OH/2+8,'text-anchor':'middle','font-size':24});ic.textContent=o.ic;g.appendChild(ic);
+  const nm=el('text',{x:OX+48,y:o.y+34,'font-family':'Space Grotesk','font-weight':600,'font-size':15,fill:'#eef4fc'});nm.textContent=o.n;g.appendChild(nm);
+  const s=el('text',{x:OX+48,y:o.y+53,'font-size':11.5,fill:'#93a1b8'});s.textContent=o.sub;g.appendChild(s);
+  svg.appendChild(g);
+});
+
+/* animation */
+const packets=[];
+function mk(a,b,speed,r,color,onDone){const c=el('circle',{r,fill:color});c.style.filter='drop-shadow(0 0 6px '+color+')';svg.appendChild(c);
+  const total=Math.hypot(b.x-a.x,b.y-a.y);packets.push({a,b,d:0,total,speed,c,onDone});}
+function hubPulse(){const c=el('circle',{cx:HUBC.x,cy:HUBC.y,r:0,fill:'none',stroke:'#22d3ee','stroke-width':2,opacity:.75});svg.appendChild(c);
+  let t=0;const iv=setInterval(()=>{t+=.05;c.setAttribute('r',t*90);c.setAttribute('opacity',Math.max(0,.75-t*.9));if(t>.85){clearInterval(iv);c.remove();}},16);}
+function flash(o){o.rect.setAttribute('stroke',o.c);o.rect.setAttribute('stroke-width',2.6);setTimeout(()=>{o.rect.setAttribute('stroke','rgba(255,255,255,.14)');o.rect.setAttribute('stroke-width',1.4);},420);}
+function spawnRegion(){
+  const rg=REGIONS[Math.floor(Math.random()*REGIONS.length)];
+  mk({x:RX+RW,y:rg.y+RH/2},{x:HUB.x,y:HUBC.y},240,4.2,rg.c,()=>{
+    hubPulse();
+    const o=OUTS[Math.floor(Math.random()*OUTS.length)];
+    mk({x:HUB.x+HUB.w,y:HUBC.y},{x:OX,y:o.y+OH/2},270,4.2,o.c,()=>flash(o));
+  });
+}
+let last=performance.now();
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  for(let i=packets.length-1;i>=0;i--){const p=packets[i];p.d+=p.speed*dt;const t=p.total?Math.min(1,p.d/p.total):1;
+    p.c.setAttribute('cx',p.a.x+(p.b.x-p.a.x)*t);p.c.setAttribute('cy',p.a.y+(p.b.y-p.a.y)*t);
+    if(t>=1){p.c.remove();packets.splice(i,1);if(p.onDone)p.onDone();}}
+  requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+setInterval(spawnRegion,300);
+
+/* blink keyframes for sensor dots */
+const st=document.createElement('style');st.textContent='@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}';document.head.appendChild(st);
+</script>
+</body>
+</html>
